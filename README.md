@@ -2,14 +2,25 @@
 
 
 ## Pre-reqs
+> ❗ NOTE: This repo should be cloned parallel to the [DaisyExamples](https://github.com/electro-smith/DaisyExamples?tab=readme-ov-file#getting-started) it is recommended to install it first before cloning this repo.
 
+Create a directory for to clone the DaisyExample and this repo into.
+```
+mkdir daisy_projects
+cd daisy_projects
+```
 
-Clone this repo parallel to the daisy examples repo.
-instruction on how to install that are [here](https://github.com/electro-smith/DaisyWiki/wiki/1.-Setting-Up-Your-Development-Environment)
+Clone the repositories.
+```
+git clone git@github.com:JopjeKnopje/daisy-code-experiments.git
+git clone --recursive https://github.com/electro-smith/DaisyExamples
+```
 
+Install the [DaisyToolchain](https://github.com/electro-smith/DaisyWiki/wiki/1d.-Installing-the-Toolchain-on-Linux).
 
-### installing the arm-compiler
-TBA
+> ❗ NOTE: When installing the [ARM Toolchain](https://github.com/electro-smith/DaisyWiki/wiki/1d.-Installing-the-Toolchain-on-Linux#arm-toolchain) 
+
+Follow the installation steps of the [DaisyExamples](https://github.com/electro-smith/DaisyExamples?tab=readme-ov-file#getting-started) repo.
 
 
 
