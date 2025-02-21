@@ -1,27 +1,52 @@
+#include "daisy_seed.h"
+#include "daisy_core.h"
 #include "daisy_patch_sm.h"
 #include "daisysp.h"
+#include "daisy_seed.h"
 
 using namespace daisy;
-using namespace patch_sm;
 using namespace daisysp;
+using namespace patch_sm;
+ 
 
-DaisyPatchSM hw;
-
-void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, size_t size)
+DaisySeed	 hw;
+DaisyPatchSM patch;
+Oscillator 	 osc;
+ 
+void AudioCallback(AudioHandle::InputBuffer  in,
+                   AudioHandle::OutputBuffer out,
+                   size_t                    size)
 {
-	hw.ProcessAllControls();
-	for (size_t i = 0; i < size; i++)
-	{
-		OUT_L[i] = IN_L[i];
-		OUT_R[i] = IN_R[i];
-	}
+	osc.SetFreq(440);
+
+    /** Process each sample of the oscillator and send to the hardware outputs */
+    for(size_t i = 0; i < size; i++)
+    {
+		float sig = osc.Process();
+        OUT_L[i]  = sig;
+        OUT_R[i]  = sig;
+
+    }
 }
 
-int main(void)
-{
-	hw.Init();
-	hw.SetAudioBlockSize(4); // number of samples handled per callback
-	hw.SetAudioSampleRate(SaiHandle::Config::SampleRate::SAI_48KHZ);
-	hw.StartAudio(AudioCallback);
-	while(1) {}
+int main(void) {
+
+	// Initialize the Daisy Seed Hardware
+	 hw.Init();
+
+	 // Enable Logging, and set up the USB connection.
+	 // hw.StartLog(true);
+
+	patch.Init();
+
+	osc.Init(patch.AudioSampleRate());
+	osc.SetWaveform(Oscillator::WAVE_POLYBLEP_SAW);
+ 	patch.StartAudio(AudioCallback);
+
+	while(1)
+	{
+
+		// hw.PrintLine("Hello World!");
+		// System::Delay(1000);
+	}
 }
