@@ -1,6 +1,7 @@
 # Project Name
 TARGET = audio_in
 
+LDFLAGS += -u _printf_float
 # Sources
 CPP_SOURCES = audio_in.cpp
 
